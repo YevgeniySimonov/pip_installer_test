@@ -1,5 +1,5 @@
 
-cdef extern from "dummyProgram.hpp":
+cdef extern from "src/dummyProgram.hpp":
     cdef void dummyPrint()
 
 cpdef void dummy_print():
