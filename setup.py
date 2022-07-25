@@ -58,5 +58,5 @@ setup(
     zip_safe=True,
     has_ext_modules=lambda: True,
     include_dirs=['pip_installer_test/'],
-    cmdclass={'build_ext': BuildExt}
+    # cmdclass={'build_ext': BuildExt}
 )   
