@@ -1,4 +1,4 @@
-from dummy_program.dummy_program import dummy_print
+from pip_installer_test.dummy_program import dummy_print
 import numpy as np
 
 if __name__ == "__main__":
