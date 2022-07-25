@@ -6,6 +6,7 @@ authors = ["Yevgeniy Simonov <yevgeniy.simonov@theugroup.co>"]
 
 [tool.poetry.dependencies]
 python = "^3.8"
+Cython = "^0.29.30"
 
 [tool.poetry.dev-dependencies]
 
