@@ -4,8 +4,8 @@ version = "0.1.0"
 description = ""
 authors = ["Yevgeniy Simonov <yevgeniy.simonov@theugroup.co>"]
 packages = [
-    { include = "dummy_program" },
-    { include = "dummy_program/*.py" }
+    { include = "pip_installer_test" },
+    { include = "pip_installer_test/*.py" }
 ]
 
 [tool.poetry.dependencies]
