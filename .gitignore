@@ -130,3 +130,5 @@ dmypy.json
 
 # Compillation
 dummy_program.cpp
+
+.vscode
