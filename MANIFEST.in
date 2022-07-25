@@ -1,2 +1,4 @@
 # Sub Directories
 recursive-include pip_installer_test *.pyx *.pxd *.pyx.in *.pxd.in
+include pip_installer_test/src/*.hpp
+include pip_installer_test/src/*.cpp
