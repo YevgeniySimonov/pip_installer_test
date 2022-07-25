@@ -3,6 +3,10 @@ name = "pip_installer_test"
 version = "0.1.0"
 description = ""
 authors = ["Yevgeniy Simonov <yevgeniy.simonov@theugroup.co>"]
+packages = [
+    { include = "dummy_program" },
+    { include = "dummy_program/*.py" }
+]
 
 [tool.poetry.dependencies]
 python = ">=3.8,<3.10"
