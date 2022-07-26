@@ -6,6 +6,7 @@ from Cython.Build import cythonize
 from setuptools import find_packages
 from setuptools.command.build_ext import build_ext
 from setuptools.command.install import install
+from setuptools.command.build_py import build_py
 
 try:
     from setuptools import setup
@@ -36,6 +37,11 @@ class Install(install):
             sys.exit(-1)
         install.run(self)
 
+class BuildPy(build_py):
+    def run(self):
+        self.run_command("build_ext")
+        return build_py.run(self)
+
 setup(
     author="Yevgeniy Simonov",
     description="""Test pip installer""",
@@ -60,10 +66,13 @@ setup(
         nthreads=4,
         build_dir='pip_installer_test'
     ),
+    # cmdclass={
+    #     'build_ext': BuildExt,
+    #     'install': Install,
+    # },
     cmdclass={
-        'build_ext': BuildExt,
-        'install': Install,
-    },
+        'build_py': BuildPy
+    }
     setup_requires=[
         'setuptools >= 18.0',
         'cython'
