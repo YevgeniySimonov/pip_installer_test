@@ -39,7 +39,7 @@ class Install(install):
 
 class BuildPy(build_py):
     def run(self):
-        self.run_command("build_ext")
+        self.run_command("build_ext --inplace")
         return build_py.run(self)
 
 setup(
@@ -72,7 +72,7 @@ setup(
     # },
     cmdclass={
         'build_py': BuildPy
-    }
+    },
     setup_requires=[
         'setuptools >= 18.0',
         'cython'
