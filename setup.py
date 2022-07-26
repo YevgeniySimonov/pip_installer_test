@@ -1,52 +1,18 @@
-import os
-import sys
-import subprocess
-
+from setuptools import setup, find_packages, Extension
+from setuptools.command.build_py import build_py as _build_py    
 from Cython.Build import cythonize
-from setuptools import find_packages
-from setuptools.command.build_ext import build_ext
-from setuptools.command.install import install
-from setuptools.command.build_py import build_py
-
-try:
-    from setuptools import setup
-    from setuptools import Extension
-except ImportError:
-    from distutils.core import setup
-    from distutils.extension import Extension
-
-# compile: python3 setup.py build_ext --inplace
+import subprocess
+import os
 
 path = os.path.dirname(os.path.realpath(__file__))
 
-print('compillation path: ', path)
-
-class BuildExt(build_ext):
-    """Customized setuptools build_ext command - builds protos on build."""
+class build_py(_build_py):
     def run(self):
-        protoc_command = ["make", "cython-build"]
-        if subprocess.call(protoc_command) != 0:
-            sys.exit(-1)
-        build_ext.run(self)
-    
-class Install(install):
-    """Customized setuptools build_ext command - builds protos on build."""
-    def run(self):
-        protoc_command = ["make", "cython-build"]
-        if subprocess.call(protoc_command) != 0:
-            sys.exit(-1)
-        install.run(self)
-
-class BuildPy(build_py):
-    def run(self):
-        self.run_command("build_ext --inplace")
-        return build_py.run(self)
+        # self.run_command("build_ext")
+        subprocess.check_call(['make', 'cython-build'], cwd=path)
+        return super().run()
 
 setup(
-    author="Yevgeniy Simonov",
-    description="""Test pip installer""",
-    name="Test pip installer",
-    packages=find_packages(exclude=('tests', 'examples', 'docs')),
     ext_modules=cythonize(
         [
             Extension(
@@ -57,26 +23,11 @@ setup(
                 ],
                 language='c++',
                 extra_compile_args=["-w", "-std=c++11"],
-                include_dirs=["pip_installer_test"],
-                define_macros = [('MAJOR_VERSION', '1'), ('MINOR_VERSION', '0')]
+                include_dirs=["pip_installer_test"]
             )
-        ], 
-        language_level = "3",
-        annotate=False,  # this flag if set to true generates html annotation
-        nthreads=4,
-        build_dir='pip_installer_test'
+        ],
+        language_level="3",
+        build_dir='pip_installer_test/'
     ),
-    # cmdclass={
-    #     'build_ext': BuildExt,
-    #     'install': Install,
-    # },
-    cmdclass={
-        'build_py': BuildPy
-    },
-    setup_requires=[
-        'setuptools >= 18.0',
-        'cython'
-    ],
-    zip_safe=True,
-    include_dirs=['pip_installer_test']
-)   
+    cmdclass = {'build_py' : build_py}
+)
