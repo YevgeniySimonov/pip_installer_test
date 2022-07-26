@@ -3,7 +3,7 @@ PYTHON?=python3
 
 # to build all cython files, run: make cython-build
 
-dir := pip_installer_test
+dir := ./pip_installer_test
 
 clean-all:
 	rm -f $(addsuffix /*.c,$(dir))

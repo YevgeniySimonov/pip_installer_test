@@ -1,14 +1,13 @@
 from setuptools import setup, find_packages, Extension
-from setuptools.command.build_py import build_py as _build_py    
+from setuptools.command.build_ext import build_ext 
 from Cython.Build import cythonize
 import subprocess
 import os
 
 path = os.path.dirname(os.path.realpath(__file__))
 
-class build_py(_build_py):
+class Build(build_ext):
     def run(self):
-        # self.run_command("build_ext")
         subprocess.check_call(['make', 'cython-build'], cwd=path)
         return super().run()
 
@@ -29,5 +28,5 @@ setup(
         language_level="3",
         build_dir='pip_installer_test/'
     ),
-    cmdclass = {'build_py' : build_py}
+    cmdclass = {'build_ext' : Build}
 )
