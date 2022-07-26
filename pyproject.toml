@@ -3,6 +3,7 @@ name = "pip_installer_test"
 version = "0.1.0"
 description = ""
 authors = ["Yevgeniy Simonov <yevgeniy.simonov@theugroup.co>"]
+build="build_ext"
 
 [tool.poetry.dependencies]
 python = ">=3.8,<3.10"
@@ -12,5 +13,5 @@ vvv = "^0.4.3"
 [tool.poetry.dev-dependencies]
 
 [build-system]
-requires = ["poetry-core>=1.0.0", "setuptools", "wheel", "cython"]
+requires = ["poetry-core>=1.0.0", "setuptools", "cython"]
 build-backend = "poetry.core.masonry.api"
